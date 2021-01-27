@@ -10,4 +10,12 @@ public class BookController {
   public String showHomePage(){
 	  return "home";
   }
+  @GetMapping(path="/home")
+  public String returnHome(){
+	  return "home";
+  }
+  @GetMapping(path="/books")
+  public String showBookListPage(){
+	  return "book-list";
+  }
 }

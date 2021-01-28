@@ -45,7 +45,7 @@ public class BookController {
 
 		bookDAO.save(book);
 		model.addAttribute("books", bookDAO.findAll());
-		return "book-list";
+		return "redirect:/books";
 	}
   
   @GetMapping("/delete/{id}")
@@ -53,6 +53,6 @@ public class BookController {
 		Book book = bookDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
 		bookDAO.delete(book);
 		model.addAttribute("books", bookDAO.findAll());
-		return "book-list";
+		return "redirect:/books";
 	}
 }

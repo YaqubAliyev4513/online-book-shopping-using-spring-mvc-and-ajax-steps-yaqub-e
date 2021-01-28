@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import az.developia.bookshopping_yaqub_e.dao.BookDAO;
 import az.developia.bookshopping_yaqub_e.model.Book;
 
+
 @Controller
 public class BookController {
 
@@ -46,6 +47,14 @@ public class BookController {
 		bookDAO.save(book);
 		model.addAttribute("books", bookDAO.findAll());
 		return "redirect:/books";
+	}
+  
+  @GetMapping("/edit/{id}")
+	public String showUpdateForm(@PathVariable("id") int id, Model model) {
+		Book book = bookDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+
+		model.addAttribute("book", book);
+		return "edit-book";
 	}
   
   @GetMapping("/delete/{id}")

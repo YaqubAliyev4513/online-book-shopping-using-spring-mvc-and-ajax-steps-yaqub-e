@@ -24,6 +24,7 @@
 						<th>Təsvir</th>
 						<th>Qiymət</th>
 						<th>Müəllif</th>
+						<th>Səhifə sayı</th>
 						<th>Şəkil</th>
 						<th>Əməliyyat</th>
 					</tr>
@@ -35,8 +36,11 @@
 						<td th:text="${book.description}"></td>
 						<td th:text="${book.price}"></td>
 						<td th:text="${book.author}"></td>
+						<td th:text="${book.pageNumbers}"></td>
 						<td></td>
-						<td><a class="btn btn-danger" onclick="return confirm('Kitabı silməyə əminsiniz?');" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+						<td><a class="btn btn-danger" onclick="return confirm('Kitabı silməyə əminsiniz?');" th:href="@{/delete/{id}(id=${book.id})}">Sil</a>
+						    <a class="btn btn-primary" th:href="@{/edit/{id}(id=${book.id})}">Redaktə</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import az.developia.bookshopping_yaqub_e.dao.BookDAO;
@@ -43,6 +44,14 @@ public class BookController {
 		}
 
 		bookDAO.save(book);
+		model.addAttribute("books", bookDAO.findAll());
+		return "book-list";
+	}
+  
+  @GetMapping("/delete/{id}")
+	public String deleteBook(@PathVariable("id") int id, Model model) {
+		Book book = bookDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+		bookDAO.delete(book);
 		model.addAttribute("books", bookDAO.findAll());
 		return "book-list";
 	}

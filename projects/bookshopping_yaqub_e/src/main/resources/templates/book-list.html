@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Kitablar</title>
-	<meta charset="UTF-8">
+<title>Kitablar</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<meta charset="UTF-8">
 </head>
 <body>
-  <div>
-    <p>
-	   <a th:href="@{/addbook}">Yeni kitab qeydiyyatı</a>
-	</p>
-	<a th:href="@{/home}">Əsas səhifə</a>
-  </div>
+	<div>
+		<p>
+			<a class="btn btn-secondary" th:href="@{/addbook}">Yeni kitab
+				qeydiyyatı</a>
+		</p>
+		<a th:href="@{/home}">Əsas səhifə</a>
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Ad</th>
+						<th>Təsvir</th>
+						<th>Qiymət</th>
+						<th>Müəllif</th>
+						<th>Şəkil</th>
+						<th>Əməliyyat</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="book : ${books}">
+						<td th:text="${book.id}"></td>
+						<td th:text="${book.name}"></td>
+						<td th:text="${book.description}"></td>
+						<td th:text="${book.price}"></td>
+						<td th:text="${book.author}"></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

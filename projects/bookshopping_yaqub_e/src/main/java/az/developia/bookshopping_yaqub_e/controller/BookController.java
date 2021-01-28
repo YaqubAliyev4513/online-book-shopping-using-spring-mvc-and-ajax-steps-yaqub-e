@@ -25,7 +25,8 @@ public class BookController {
 	  return "home";
   }
   @GetMapping(path="/books")
-  public String showBookListPage(){
+  public String showBookListPage(Model model){
+	  model.addAttribute("books", bookDAO.findAll());
 	  return "book-list";
   }
   @GetMapping(path="/addbook")
@@ -42,7 +43,7 @@ public class BookController {
 		}
 
 		bookDAO.save(book);
-//		model.addAttribute("books", bookDAO.findAll());
+		model.addAttribute("books", bookDAO.findAll());
 		return "book-list";
 	}
 }

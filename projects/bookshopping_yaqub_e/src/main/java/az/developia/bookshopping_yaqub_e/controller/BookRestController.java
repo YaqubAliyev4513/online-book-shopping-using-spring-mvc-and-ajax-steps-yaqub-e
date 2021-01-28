@@ -17,10 +17,5 @@ public class BookRestController {
 	@Autowired
 	private BookDAO bookDAO;
 	
-	@PostMapping
-	public Integer add(@RequestBody Book book){
-		book.setId(null);
-		Integer id=bookDAO.save(book).getId();
-		return id;
-	}
+	
 }

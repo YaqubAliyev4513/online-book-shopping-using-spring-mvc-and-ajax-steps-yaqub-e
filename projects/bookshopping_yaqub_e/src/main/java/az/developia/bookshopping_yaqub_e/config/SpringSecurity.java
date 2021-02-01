@@ -26,7 +26,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET,"/").permitAll()
                 .antMatchers(HttpMethod.GET,"/home").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                .anyRequest().authenticated().and().httpBasic();
+                .anyRequest().authenticated().and().formLogin().loginPage("/showMyLoginPage")
+             
+                .loginProcessingUrl("/authenticateTheUser").permitAll()
+                .and()
+                .logout()
+                .permitAll();
                 
 	}       
 }

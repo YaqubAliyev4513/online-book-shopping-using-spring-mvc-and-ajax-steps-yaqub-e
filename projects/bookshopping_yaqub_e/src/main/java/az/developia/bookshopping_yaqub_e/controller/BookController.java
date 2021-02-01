@@ -22,6 +22,12 @@ public class BookController {
   public String showHomePage(){
 	  return "home";
   }
+  
+  @GetMapping(path="/showMyLoginPage")
+  public String returnLoginPage(){
+	  return "my-custom-login";
+  }
+  
   @GetMapping(path="/home")
   public String returnHome(){
 	  return "home";

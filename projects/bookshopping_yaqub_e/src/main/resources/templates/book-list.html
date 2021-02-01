@@ -23,10 +23,10 @@ $(document).ready( function () {
     <div th:replace="menu :: menu"></div>
 	<div>
 		<p>
-			<a class="btn btn-secondary" th:href="@{/addbook}">Yeni kitab
+			<a class="btn btn-success" th:href="@{/addbook}">Yeni kitab
 				qeydiyyatı</a>
+			<a  class="btn btn-primary" th:href="@{/home}">Əsas səhifə</a>
 		</p>
-		<a th:href="@{/home}">Əsas səhifə</a>
 		<div>
 			<table id="myBooksTable" class="table">
 				<thead>

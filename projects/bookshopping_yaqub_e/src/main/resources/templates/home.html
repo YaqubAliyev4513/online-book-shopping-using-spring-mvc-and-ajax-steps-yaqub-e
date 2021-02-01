@@ -7,7 +7,10 @@
 </head>
 <body>
  <div th:replace="menu :: menu"></div>
- <h1>Welcome to my Home Page</h1>
- <a th:href="@{/books}">Kitabların siyahısı</a>
+ <h1>Kitab alış-verişi saytımıza xoş gəlmisiniz</h1>
+ <a class="btn btn-primary" th:href="@{/books}">Kitabların siyahısı</a>
+ <a class="btn btn-warning" >Kitab alış-verişinə başla</a>
+ <a class="btn btn-success" >Sifarişlərim</a>
+ <a class="btn btn-danger" >Çıxış</a>
 </body>
 </html>

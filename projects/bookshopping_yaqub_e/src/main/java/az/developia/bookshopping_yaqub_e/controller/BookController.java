@@ -37,6 +37,18 @@ public class BookController {
 	  model.addAttribute("books", bookDAO.findAll());
 	  return "book-list";
   }
+  
+  @GetMapping(path="/orders")
+  public String showOrdersPage(){
+	  return "orders";
+  }
+  
+  @GetMapping(path="/customer")
+  public String showCustomerPage(){
+	  return "customer";
+  }
+  
+  
   @GetMapping(path="/addbook")
   public String showAddBookForm(Model model){
 	  Book book = new Book();

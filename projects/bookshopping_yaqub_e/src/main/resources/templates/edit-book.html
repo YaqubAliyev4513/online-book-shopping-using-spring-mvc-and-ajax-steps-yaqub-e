@@ -20,7 +20,7 @@
     
     <div class="form-group">
       <label for="description">Təsvir:</label>
-        <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Təsvir">
+        <textarea class="form-control" type="text" th:field="*{description}" id="description" placeholder="Təsvir" rows="5" cols="60"></textarea>
     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
     

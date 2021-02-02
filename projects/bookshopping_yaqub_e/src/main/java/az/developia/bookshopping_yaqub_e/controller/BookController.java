@@ -23,7 +23,7 @@ public class BookController {
 	  return "home";
   }
   
-  @GetMapping(path="/showMyLoginPage")
+  @GetMapping(path="/showLoginPage")
   public String returnLoginPage(){
 	  return "my-custom-login";
   }

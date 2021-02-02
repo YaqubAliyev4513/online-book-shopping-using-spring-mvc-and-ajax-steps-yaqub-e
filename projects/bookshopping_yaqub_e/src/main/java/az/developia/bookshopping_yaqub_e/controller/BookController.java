@@ -45,7 +45,7 @@ public class BookController {
   
   @GetMapping(path="/customer")
   public String showCustomerPage(){
-	  return "customer";
+	  return "customer-ajax";
   }
   
   

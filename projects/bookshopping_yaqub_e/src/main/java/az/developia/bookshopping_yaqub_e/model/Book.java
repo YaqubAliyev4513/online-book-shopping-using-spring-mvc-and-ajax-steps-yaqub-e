@@ -16,7 +16,7 @@ public class Book {
 	private Double price;
 	private String author;
 	private Integer pageNumbers;
-	
+	private String username;
 	
 	public Integer getId() {
 		return id;
@@ -54,6 +54,14 @@ public class Book {
 	public void setPageNumbers(Integer pageNumbers) {
 		this.pageNumbers = pageNumbers;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 	
 	
 }

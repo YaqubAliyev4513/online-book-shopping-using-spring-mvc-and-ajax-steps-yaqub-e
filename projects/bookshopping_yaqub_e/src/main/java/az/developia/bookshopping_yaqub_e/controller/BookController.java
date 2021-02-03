@@ -1,6 +1,8 @@
 package az.developia.bookshopping_yaqub_e.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import az.developia.bookshopping_yaqub_e.config.MySession;
 import az.developia.bookshopping_yaqub_e.dao.BookDAO;
 import az.developia.bookshopping_yaqub_e.model.Book;
 
@@ -17,8 +20,12 @@ public class BookController {
 
   @Autowired
   public BookDAO bookDAO;
+  private String username;
+  
+  @Autowired
+  private MySession mySession;
 	
-  @GetMapping()
+  @GetMapping(path={"/","/home"})
   public String showHomePage(){
 	  return "home";
   }
@@ -28,13 +35,15 @@ public class BookController {
 	  return "my-custom-login";
   }
   
-  @GetMapping(path="/home")
-  public String returnHome(){
-	  return "home";
-  }
+  
   @GetMapping(path="/books")
   public String showBookListPage(Model model){
-	  model.addAttribute("books", bookDAO.findAll());
+	  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	  String username = loggedInUser.getName();
+	  mySession.setMessage("Hello session");
+	  mySession.setUsername(username);
+	  this.username=username;
+	  model.addAttribute("books", bookDAO.findAllByUsername(this.username));
 	  return "book-list";
   }
   
@@ -61,7 +70,7 @@ public class BookController {
 		if (result.hasErrors()) {
 			return "add-book";
 		}
-
+        book.setUsername(username); 
 		bookDAO.save(book);
 		model.addAttribute("books", bookDAO.findAll());
 		return "redirect:/books";

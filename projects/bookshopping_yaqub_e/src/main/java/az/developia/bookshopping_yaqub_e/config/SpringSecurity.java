@@ -25,6 +25,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
                 .antMatchers(HttpMethod.GET,"/home").permitAll()
+                .antMatchers(HttpMethod.GET,"/createUserShowForm").permitAll()
+                .antMatchers(HttpMethod.POST,"/createUserProcess").permitAll()
                 .antMatchers(HttpMethod.GET,"/customer").permitAll()
                 .antMatchers(HttpMethod.GET,"/customer-rest/find-partial").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
@@ -35,5 +37,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter{
                 .logout()
                 .permitAll();
                 
-	}       
+	}  
+	
+	
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource);
+            
+    }
 }

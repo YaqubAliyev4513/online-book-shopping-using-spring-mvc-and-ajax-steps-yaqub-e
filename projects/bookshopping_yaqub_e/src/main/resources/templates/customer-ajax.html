@@ -147,7 +147,7 @@
 	
  
 			<input  style="position: fixed; right: 10px;bottom: 50px;width: 200px" id="searchText" type="text" placeholder="Buradan axtarmaq istədiyinizi yazın" name="searchText" />
-			 <button  id="basket-button" style="position: fixed; right: 10px;bottom: 10px;width: 200px"
+			 <button onclick="openBasket()"  id="basket-button" style="position: fixed; right: 10px;bottom: 10px;width: 200px"
 			  type="button" class="btn btn-primary" >Səbət(<span id="book-count">0</span>)</button>
 		 
 	
@@ -177,11 +177,13 @@
 	
 	<script>
 	var allBooksArray;
+	var xml;
 	function myFunction(xml) {
 		
 		  var i;
 		  var xmlDoc = xml.responseXML; 
 		  allBooksArray=xmlDoc;
+		  this.xml=xml;
 		  var table="";
 		  var x = xmlDoc.getElementsByTagName("item");
 		  console.log(x.length);
@@ -200,7 +202,7 @@
 				 +
 				 "<span class='book-pageNumbers'> "+ x[i].getElementsByTagName("pageNumbers")[0].innerHTML+" </span> "
 				 +
-				 "<button  class='add-to-basket'>Səbətə at</button></div></div>";
+				 "<button onclick='addToBasket("+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+")' class='add-to-basket'>Səbətə at</button></div></div>";
 				 
 			  
 		  }
@@ -215,6 +217,55 @@
 		  };
 		  xhttp.open("GET", "/customer-rest/find-partial", true);
 		  xhttp.send();
+		  
+		  
+		  var basketBookCount=0;
+		  var basketBooksIdList=[];
+		  var bookIdForAddToBasket=0;
+		  
+		  
+		  function addToBasket(id) {
+			  bookIdForAddToBasket=id;
+			  var thisBookAlreadyInBasket=basketBooksIdList.some(searchId);
+			  
+			  var i;
+			  var x = allBooksArray.getElementsByTagName("item");
+			  var name,price;
+			  for(i=0;i<x.length;i++){
+				 if(x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue==id){
+					 name=x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+					 price=x[i].getElementsByTagName("price")[0].childNodes[0].nodeValue;
+				 }
+			 }
+			 
+			  var book={id:id,name:name,price:price};
+			  if(thisBookAlreadyInBasket){
+				  alert('Bu artiq sebetde var');
+			  }else{
+				  
+				  basketBooksIdList.push(book);
+
+				  document.getElementById("basket-button").style.display = 'none';
+				  setTimeout(() => {
+					  document.getElementById("basket-button").style.display = 'block';
+				}, 300);
+				  document.getElementById("book-count").innerHTML = ++basketBookCount;
+				  console.log(name+' kitabi sebete elave olundu');
+			  }
+			   
+		}
+		  
+		  function searchId(value){
+			  return value.id==bookIdForAddToBasket;
+		  }
+
+		  function openBasket(){
+			  var basketString=JSON.stringify(basketBooksIdList);
+			  
+			  localStorage.setItem('basket-items', basketString);
+			  window.location.href = '/basket';
+			  
+		  }
 	
 </script>
 	

@@ -52,11 +52,6 @@ public class BookController {
 	  return "orders";
   }
   
-  @GetMapping(path="/customer")
-  public String showCustomerPage(){
-	  return "customer-ajax";
-  }
-  
   
   @GetMapping(path="/addbook")
   public String showAddBookForm(Model model){

@@ -1,8 +1,12 @@
 package az.developia.bookshopping_yaqub_e.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +39,10 @@ public class OrderRestController {
 		return this.orderDAO.save(orderModel);
 	}
 	
+	@GetMapping(path="/{username}")
+	public List<OrderModel> findAllByUsername(@PathVariable(name="username") String username){
+			return orderDAO.findAllByUsername(username);
+	} 
 	
 	  
 }

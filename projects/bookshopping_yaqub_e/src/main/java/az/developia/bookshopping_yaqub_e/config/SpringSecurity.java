@@ -28,7 +28,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET,"/createUserShowForm").permitAll()
                 .antMatchers(HttpMethod.POST,"/createUserProcess").permitAll()
                 .antMatchers(HttpMethod.GET,"/customer").permitAll()
-                .antMatchers(HttpMethod.GET,"/orders-rest").permitAll()
+                .antMatchers(HttpMethod.GET,"/orders-rest/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/orders-rest").permitAll()
                 .antMatchers(HttpMethod.GET,"/customer-rest/find-partial").permitAll()
                 .antMatchers(HttpMethod.GET,"/customer/confirmation-form").permitAll()

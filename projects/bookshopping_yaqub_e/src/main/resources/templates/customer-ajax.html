@@ -202,7 +202,7 @@
 				 +
 				 "<span class='book-pageNumbers'> "+ x[i].getElementsByTagName("pageNumbers")[0].innerHTML+" </span> "
 				 +
-				 "<button onclick='addToBasket("+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+")' class='add-to-basket'>Səbətə at</button></div></div>";
+				 "<button onclick='addToBasket("+x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue+",1)' class='add-to-basket'>Səbətə at</button></div></div>";
 				 
 			  
 		  }
@@ -220,11 +220,19 @@
 		  
 		  
 		  var basketBookCount=0;
-		  var basketBooksIdList=[];
+		  var basketBooksIdListString=localStorage.getItem('basket-items');
+		  console.log(basketBooksIdListString);
+		  if(basketBooksIdListString==null){
+			  basketBooksIdListString='[]';
+			  localStorage.setItem('basket-items','[]');
+		  }
+		  
+		  var basketBooksIdList=JSON.parse(basketBooksIdListString);
+		  document.getElementById("book-count").innerHTML = basketBooksIdList.length;
 		  var bookIdForAddToBasket=0;
 		  
 		  
-		  function addToBasket(id) {
+		  function addToBasket(id,count) {
 			  bookIdForAddToBasket=id;
 			  var thisBookAlreadyInBasket=basketBooksIdList.some(searchId);
 			  
@@ -238,7 +246,7 @@
 				 }
 			 }
 			 
-			  var book={id:id,name:name,price:price};
+			  var book={id:id,name:name,price:price,count:count};
 			  if(thisBookAlreadyInBasket){
 				  alert('Bu artiq sebetde var');
 			  }else{

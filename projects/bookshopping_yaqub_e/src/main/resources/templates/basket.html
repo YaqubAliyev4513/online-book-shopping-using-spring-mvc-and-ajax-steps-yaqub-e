@@ -97,6 +97,14 @@
 				console.log(count);
 				document.getElementById('input'+id).value='0';			
 			}
+		    for (var i = 0; i < basketItemsArray.length; i++) {
+				var basketItem=basketItemsArray[i];
+				if(basketItem.id==id){
+					basketItem.count=count;
+					break;
+				}
+			}
+				 console.log(basketItemsArray);
 			var totalPrice=count*price;
 			if(totalPrice<0){
 				totalPrice=0;

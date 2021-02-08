@@ -57,7 +57,7 @@
 			 var book=basketItemsArray[i];
 			 tableBodyString+="<tr> <td> "+book.id+" </td> <td>"+book.name+"</td><td>"+book.price+' AZN'+
 			 "</td><td><input min='0' max='1000' onchange='updateLocalStorage()' oninput='onCountChange(this.value,"+book.id+","+book.price+
-					 ")' id='input"+book.id+"' type='number' value='1'>"+
+					 ")' id='input"+book.id+"' type='number' value='"+book.count+"'>"+
 			 
 			 "</td><td> <span id='id"+book.id+"'>"+book.price+' AZN'+
 			 " </span> </td><td><button onclick='deleteBook("+book.id+")' class='btn btn-danger'>X</button></td> </tr> ";

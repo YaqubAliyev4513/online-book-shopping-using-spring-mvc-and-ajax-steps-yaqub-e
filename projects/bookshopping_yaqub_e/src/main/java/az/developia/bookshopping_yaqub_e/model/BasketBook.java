@@ -17,7 +17,7 @@ public class BasketBook {
 	private Integer id;
 	private Integer quantity;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name="book_id")
 	private Book book;
 	private Double totalPrice;
@@ -44,6 +44,12 @@ public class BasketBook {
 	}
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	
+	@Override
+	public String toString() {
+		return "BasketBook [id=" + id + ", quantity=" + quantity + ", book=" + book + ", totalPrice=" + totalPrice
+				+ "]";
 	}
 
 }

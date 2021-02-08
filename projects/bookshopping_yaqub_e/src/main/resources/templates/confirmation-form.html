@@ -50,49 +50,9 @@ var customerName=document.getElementById("customer-name") ;
 var customerPhone=document.getElementById("customer-phone") ;
 console.log(customerName.value);
 
-function finishProcess() {
-	
-	if(finishForm.checkValidity()){
-		console.log('valid');
-		
-		var basketItems=localStorage.getItem('basket-items');
-		 
-		 var basketItemsArray=JSON.parse(basketItems);
-		  
-		 
-		
-		var xhttp = new XMLHttpRequest();
-		  xhttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		      myFunction(this);
-		      alert('sifarisiniz ugurla qeydiyyata alindi');
-		      localStorage.removeItem('basket-items');
-		    }
-		    
-		  };
-		  xhttp.open("POST", "/orders-rest/json", true);
-		  
-		  xhttp.setRequestHeader("Content-type", "application/json"); // XML evezine JSON gonderir
-		  console.log(customerName);
-		  
-		 var orderObject={notes:'qeyd',username:'Yaqub',
-				  basketBooks:[],customer:{name:customerName.value,phone:customerPhone.value}};
-		    
-		  for (var i = 0; i < basketItemsArray.length; i++) {
-			var basketItem=basketItemsArray[i];
-			 
-			orderObject.basketBooks.push({quantity:basketItem.count,book:{id:basketItem.id}});
-		}
-		  xhttp.send( JSON.stringify(orderObject));
-		     
-	}else{
-		console.log('invalid');
-	}
-}
 
 
 
-/*  XML version
 function finishProcess() {
 	
 	if(finishForm.checkValidity()){
@@ -144,7 +104,7 @@ function finishProcess() {
 	}else{
 		console.log('invalid');
 	}
-} */
+}
 
 
 function myFunction(data) {console.log(data);} 

@@ -61,6 +61,13 @@ public class Book {
 		this.username = username;
 	}
 	
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + ", price=" + price + ", username="
+				+ username + "]";
+	}
+
+	
 	
 	
 	

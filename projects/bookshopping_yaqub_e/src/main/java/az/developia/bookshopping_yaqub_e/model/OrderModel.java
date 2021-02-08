@@ -93,5 +93,11 @@ public class OrderModel {
 		this.basketBooks = basketBooks;
 	}
 	
+	@Override
+	public String toString() {
+		return "OrderModel [id=" + id + ", totalPrice=" + totalPrice + ", notes=" + notes + ", username=" + username
+				+ ", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
+	}
+	
 
 }

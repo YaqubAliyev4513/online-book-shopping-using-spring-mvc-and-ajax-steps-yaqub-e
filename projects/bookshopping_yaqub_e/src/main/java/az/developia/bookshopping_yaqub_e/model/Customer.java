@@ -14,12 +14,22 @@ public class Customer {
 	private Integer id;
 
 	private String name;
+	private String surname;
 	private String address;
 	private String phone;
 	private String email;
 	public Integer getId() {
 		return id;
 	}
+	
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

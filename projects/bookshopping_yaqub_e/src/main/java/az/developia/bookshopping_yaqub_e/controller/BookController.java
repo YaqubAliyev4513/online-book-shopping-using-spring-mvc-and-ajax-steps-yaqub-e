@@ -48,7 +48,12 @@ public class BookController {
   }
   
   @GetMapping(path="/orders")
-  public String showOrdersPage(){
+  public String showOrdersPage(Model model){
+	  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	  String username = loggedInUser.getName();
+	  mySession.setMessage("Hello session");
+	  mySession.setUsername(username);
+	  this.username=username;
 	  return "orders";
   }
   

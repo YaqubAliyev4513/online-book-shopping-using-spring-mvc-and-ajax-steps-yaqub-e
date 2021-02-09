@@ -39,7 +39,7 @@ public class OrderRestController {
 		return this.orderDAO.save(orderModel);
 	}
 	
-	@GetMapping(path="/{username}")
+	@GetMapping(path="/{username}",produces = MediaType.APPLICATION_XML_VALUE)
 	public List<OrderModel> findAllByUsername(@PathVariable(name="username") String username){
 			return orderDAO.findAllByUsername(username);
 	} 

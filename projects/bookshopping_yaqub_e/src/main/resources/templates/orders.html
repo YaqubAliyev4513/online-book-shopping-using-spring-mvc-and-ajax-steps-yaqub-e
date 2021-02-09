@@ -7,6 +7,49 @@
 </head>
 <body>
  <div th:replace="menu :: menu"></div>
- <h1>Sifarişlər</h1>
+ <label>Istifadəçi adı:</label><label id="usernameText" th:text="${@mySession.getUsername()}"></label>
+ <table class="table" id="orders"></table>
+ <script>
+   var username = document.getElementById("usernameText").textContent;
+   window.onload = function() {
+	   loadOrders();
+	   console.log("Worked");
+	};
+   function loadOrders() {
+	   var xmlhttp = new XMLHttpRequest();
+	   xmlhttp.onreadystatechange = function() {
+	     if (this.readyState == 4 && this.status == 200) {
+	       myFunction(this);
+	     }
+	   };
+	   xmlhttp.open("GET", "/orders-rest/"+username+"", true);
+	   xmlhttp.send();
+	 }
+	 function myFunction(xml) {
+	   var i;
+	   var xmlDoc = xml.responseXML;
+	   var table="<tr><th> Sifarişlərin id məlumatları</th><th>Kitabların adları</th><th>Kitablarin sayı</th><th>Sifariş edənin ad və soyadı</th><th>Sifariş edənin ünvanını</th><th>Sifariş edənin telefonunu</th><th>Sifariş tarixini</th></tr>";
+	   var x = xmlDoc.getElementsByTagName("item");
+	   console.log(x);
+	   for (i = 0; i <x.length; i++) {
+	     table += "<tr><td>" +
+	     x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue        +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("bookName")[0].childNodes[0].nodeValue  +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("bookCount")[0].childNodes[0].nodeValue +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("fullName")[0].childNodes[0].nodeValue  +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("address")[0].childNodes[0].nodeValue   +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("phone")[0].childNodes[0].nodeValue     +
+	     "</td><td>" +
+	     x[i].getElementsByTagName("register")[0].childNodes[0].nodeValue  +
+	     "</td></tr>";
+	   }
+	   document.getElementById("orders").innerHTML = table;
+	 }
+ </script>
 </body>
 </html>

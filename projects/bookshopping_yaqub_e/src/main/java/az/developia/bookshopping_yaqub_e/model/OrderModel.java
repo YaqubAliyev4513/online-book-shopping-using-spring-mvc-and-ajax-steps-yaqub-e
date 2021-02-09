@@ -23,9 +23,14 @@ public class OrderModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Double totalPrice;
-	private String notes;
+	private String bookName;
+	private Integer bookCount;
 	private String username;
+	private String fullName;
+	private String address;
+	private String phone;
+	
+	
 	@CreationTimestamp
 	private Timestamp register;
 	
@@ -37,66 +42,132 @@ public class OrderModel {
 	@JoinColumn(name="order_id")
 	private List<BasketBook> basketBooks;
 
+	
+	
 	public Integer getId() {
 		return id;
 	}
+
+
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Double getTotalPrice() {
-		return totalPrice;
+
+
+	public String getBookName() {
+		return bookName;
 	}
 
-	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
+
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
 
-	public String getNotes() {
-		return notes;
+
+
+	public Integer getBookCount() {
+		return bookCount;
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+
+
+	public void setBookCount(Integer bookCount) {
+		this.bookCount = bookCount;
 	}
+
+
 
 	public String getUsername() {
 		return username;
 	}
 
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
+
+	public String getFullName() {
+		return fullName;
+	}
+
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
 
 	public Timestamp getRegister() {
 		return register;
 	}
 
+
+
 	public void setRegister(Timestamp register) {
 		this.register = register;
 	}
+
+
 
 	public Customer getCustomer() {
 		return customer;
 	}
 
+
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+
 
 	public List<BasketBook> getBasketBooks() {
 		return basketBooks;
 	}
 
+
+
 	public void setBasketBooks(List<BasketBook> basketBooks) {
 		this.basketBooks = basketBooks;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
-		return "OrderModel [id=" + id + ", totalPrice=" + totalPrice + ", notes=" + notes + ", username=" + username
-				+ ", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
+		return "OrderModel [id=" + id + ", bookName=" +bookName+", bookCount=" +bookCount+", username=" + username
+				+ ",fullName=" +fullName+",address=" +address+",phone=" +phone+", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
 	}
 	
 

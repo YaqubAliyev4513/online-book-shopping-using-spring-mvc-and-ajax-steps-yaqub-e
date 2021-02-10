@@ -16,6 +16,7 @@ public class Book {
 	private Double price;
 	private String author;
 	private Integer pageNumbers;
+	private String imagePath;
 	private String username;
 	
 	public Integer getId() {
@@ -61,9 +62,17 @@ public class Book {
 		this.username = username;
 	}
 	
+	
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", price=" + price + ", username="
+		return "Book [id=" + id + ", name=" + name + ", price=" + price + ",imagePath="+imagePath+", username="
 				+ username + "]";
 	}
 

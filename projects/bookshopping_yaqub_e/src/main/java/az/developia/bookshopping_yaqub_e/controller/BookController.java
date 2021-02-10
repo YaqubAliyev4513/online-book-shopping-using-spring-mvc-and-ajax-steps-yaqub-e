@@ -1,5 +1,9 @@
 package az.developia.bookshopping_yaqub_e.controller;
 
+import java.util.List;
+
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,10 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import az.developia.bookshopping_yaqub_e.config.MySession;
 import az.developia.bookshopping_yaqub_e.dao.BookDAO;
 import az.developia.bookshopping_yaqub_e.dao.OrderDAO;
+import az.developia.bookshopping_yaqub_e.file.StorageService;
 import az.developia.bookshopping_yaqub_e.model.Book;
 
 
@@ -25,6 +32,12 @@ public class BookController {
   
   @Autowired
   public OrderDAO orderDAO;
+  
+  @Autowired
+  private StorageService storageService;
+  
+  @Autowired
+  private ServletContext servletContext;
   
   @Autowired
   private MySession mySession;
@@ -47,7 +60,7 @@ public class BookController {
 	  mySession.setMessage("Hello session");
 	  mySession.setUsername(username);
 	  this.username=username;
-	  model.addAttribute("books", bookDAO.findAllByUsername(this.username));
+	  model.addAttribute("books", addImagePath(bookDAO.findAllByUsername(this.username)));
 	  return "book-list";
   }
   
@@ -71,13 +84,27 @@ public class BookController {
 	  return "add-book";
   }
   @PostMapping("/addbook/{id}")
-	public String addBook(Book book, BindingResult result, Model model) {
+	public String addBook(Book book, BindingResult result, Model model,@RequestParam(value = "image",required=true) MultipartFile image) {
 		if (result.hasErrors()) {
 			return "add-book";
 		}
+		
+		String imageName="fakeimage.png";
+
+		System.out.println(image);
+
+		if(image==null){
+			
+		}else{
+			imageName = storageService.store(image);
+		}
+				
+	    book.setImagePath(imageName);
+		
+		
         book.setUsername(username); 
 		bookDAO.save(book);
-		model.addAttribute("books", bookDAO.findAll());
+		model.addAttribute("books", addImagePath(bookDAO.findAllByUsername(this.username)));
 		return "redirect:/books";
 	}
   
@@ -93,7 +120,16 @@ public class BookController {
 	public String deleteBook(@PathVariable("id") int id, Model model) {
 		Book book = bookDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
 		bookDAO.delete(book);
-		model.addAttribute("books", bookDAO.findAll());
+		model.addAttribute("books", addImagePath(bookDAO.findAllByUsername(this.username)));
 		return "redirect:/books";
+	}
+  
+  private List<Book> addImagePath(List<Book> books) {
+		String contextPath = servletContext.getContextPath();
+		System.out.println("contextPath : " + contextPath);
+		for (Book book : books) {
+			book.setImagePath(contextPath + "/files/" + book.getImagePath());
+		}
+		return books;
 	}
 }

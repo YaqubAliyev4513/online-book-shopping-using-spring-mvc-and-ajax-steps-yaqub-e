@@ -191,7 +191,8 @@
 			  table += "<div class='book-card-container'><div class='book-card'> "+
 			    "<div class='book-image-container' style='width: 90%; margin: auto; height: 150px;"+
 			    "margin-top: 20px; padding: 10px;'>"+
-				"<img style='max-width: 90%; max-height: 90%;' class='book-image'  ></div> " +
+				"<img style='max-width: 90%; max-height: 90%;' class='book-image' src='"+
+				 x[i].getElementsByTagName("imagePath")[0].innerHTML+"' ></div> " +
 				 "<span class='book-name'> "+ x[i].getElementsByTagName("name")[0].innerHTML+" </span> "
 				 +
 				 "<span class='book-price'> "+ x[i].getElementsByTagName("price")[0].innerHTML+" </span>"

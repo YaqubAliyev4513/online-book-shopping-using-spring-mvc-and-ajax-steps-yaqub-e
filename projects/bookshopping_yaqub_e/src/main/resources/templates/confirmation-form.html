@@ -98,44 +98,36 @@ function finishProcess() {
 		  
 		 
 		
-		
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		      myFunction(this);
+		      alert('sifarisiniz ugurla qeydiyyata alindi');
+		      localStorage.removeItem('basket-items');
+		    }
+		    
+		  };
+		  xhttp.open("POST", "/orders-rest", true);
+		  
+		  xhttp.setRequestHeader("Content-type", "application/xml");
+		  console.log(customerName);
 		  
 		  var orderFullXmlObject="";
 		  for (var i = 0; i < basketItemsArray.length; i++) {
 			var basketItem=basketItemsArray[i];
-			var orderFullXmlObject="<order><bookName>"+basketItem.name+"</bookName><bookCount>"+basketItem.count+"</bookCount><username>"+basketItem.username+"</username><fullName>"+customerName.value+' '+customerSurname.value+"</fullName><address> "+customerAddress.value+"</address><phone> "+customerPhone.value+"</phone><basketBooks>";
+			orderFullXmlObject="<order><username>"+basketItem.username+"</username><bookName>"+basketItem.name+"</bookName><bookCount>"+basketItem.count+"</bookCount><basketBooks>";
 			orderFullXmlObject+="<item><quantity>"+basketItem.count+"</quantity>"+
 			"<book><id>"+basketItem.id+"</id></book></item>"
-			console.log(customerName.value);
-			if(i!=0){
-				orderFullXmlObject+="</basketBooks></order>";
-			}else{
-				orderFullXmlObject+="</basketBooks><customer><name> "+customerName.value+"</name><surname>"+customerSurname.value+"</surname><phone> "+customerPhone.value+"</phone><email> "+customerEmail.value+"</email><address> "+customerAddress.value+"</address></customer></order>";	
-			}
-			   
-			  
-			   console.log(orderFullXmlObject);
-			  
-			   var xhttp = new XMLHttpRequest();
-				  xhttp.onreadystatechange = function() {
-				    if (this.readyState == 4 && this.status == 200) {
-				      myFunction(this);
-				      if(i==0){
-				    	  alert('sifarisiniz ugurla qeydiyyata alindi');  
-				      }
-				      localStorage.removeItem('basket-items');
-				    }
-				    
-				  };
-				  xhttp.open("POST", "/orders-rest", true);
-				  
-				  xhttp.setRequestHeader("Content-type", "application/xml");
-				  console.log(customerName);
-				  
-			  xhttp.send( orderFullXmlObject);
-			  console.log('cavab geldi');
 		}
+		  console.log(customerName.value);
+		  orderFullXmlObject+="</basketBooks><customer><name> "+customerName.value+"</name><surname>"+customerSurname.value+"</surname><phone> "+customerPhone.value+"</phone><email> "+customerEmail.value+"</email><address> "+customerAddress.value+"</address></customer></order>";
+		   
 		  
+		   console.log(orderFullXmlObject);
+		  
+		  
+		  xhttp.send( orderFullXmlObject);
+		  console.log('cavab geldi');
 		
 		
 		
@@ -148,8 +140,6 @@ function finishProcess() {
 		console.log('invalid');
 	}
 }
-
-
 function myFunction(data) {console.log(data);} 
  
 function handleForm(event) { event.preventDefault(); } 

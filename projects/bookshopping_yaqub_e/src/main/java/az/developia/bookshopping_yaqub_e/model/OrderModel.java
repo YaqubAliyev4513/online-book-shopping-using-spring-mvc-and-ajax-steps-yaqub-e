@@ -26,9 +26,6 @@ public class OrderModel {
 	private String bookName;
 	private Integer bookCount;
 	private String username;
-	private String fullName;
-	private String address;
-	private String phone;
 	
 	
 	@CreationTimestamp
@@ -92,40 +89,7 @@ public class OrderModel {
 
 
 
-	public String getFullName() {
-		return fullName;
-	}
-
-
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-
-	public String getPhone() {
-		return phone;
-	}
-
-
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
+	
 
 
 	public Timestamp getRegister() {
@@ -167,7 +131,7 @@ public class OrderModel {
 	@Override
 	public String toString() {
 		return "OrderModel [id=" + id + ", bookName=" +bookName+", bookCount=" +bookCount+", username=" + username
-				+ ",fullName=" +fullName+",address=" +address+",phone=" +phone+", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
+				+ ", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
 	}
 	
 

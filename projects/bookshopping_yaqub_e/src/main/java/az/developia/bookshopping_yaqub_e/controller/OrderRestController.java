@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.bookshopping_yaqub_e.config.MySession;
+import az.developia.bookshopping_yaqub_e.dao.CustomerDAO;
 import az.developia.bookshopping_yaqub_e.dao.OrderDAO;
+import az.developia.bookshopping_yaqub_e.model.Customer;
 import az.developia.bookshopping_yaqub_e.model.OrderModel;
 
 
@@ -28,6 +30,8 @@ public class OrderRestController {
 	private OrderDAO orderDAO;
 	private String username;
 	
+	@Autowired
+	private CustomerDAO customerDAO;
 	
 	@Autowired
 	private MySession mySession;
@@ -35,7 +39,14 @@ public class OrderRestController {
 
 	@PostMapping (consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
 	public OrderModel add(@RequestBody OrderModel orderModel){
-		System.out.println(orderModel);
+		System.out.println(orderModel); // 022-222-2222
+		Customer customer =customerDAO.findByPhone(orderModel.getCustomer().getPhone());
+		
+		if(customer==null){
+			
+		}else{
+			orderModel.setCustomer(customer);
+		}
 		return this.orderDAO.save(orderModel);
 	}
 	

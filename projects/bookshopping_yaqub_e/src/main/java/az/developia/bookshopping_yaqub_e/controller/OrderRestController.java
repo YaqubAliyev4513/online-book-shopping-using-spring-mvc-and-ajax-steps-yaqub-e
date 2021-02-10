@@ -1,5 +1,6 @@
 package az.developia.bookshopping_yaqub_e.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.bookshopping_yaqub_e.config.MySession;
+import az.developia.bookshopping_yaqub_e.dao.BookDAO;
 import az.developia.bookshopping_yaqub_e.dao.CustomerDAO;
 import az.developia.bookshopping_yaqub_e.dao.OrderDAO;
+import az.developia.bookshopping_yaqub_e.model.BasketBook;
 import az.developia.bookshopping_yaqub_e.model.Customer;
 import az.developia.bookshopping_yaqub_e.model.OrderModel;
 
@@ -34,12 +37,14 @@ public class OrderRestController {
 	private CustomerDAO customerDAO;
 	
 	@Autowired
+	private BookDAO bookDAO;
+	
+	@Autowired
 	private MySession mySession;
 	
 
 	@PostMapping (consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
-	public OrderModel add(@RequestBody OrderModel orderModel){
-		System.out.println(orderModel); // 022-222-2222
+	public List<OrderModel> add(@RequestBody OrderModel orderModel){
 		Customer customer =customerDAO.findByPhone(orderModel.getCustomer().getPhone());
 		
 		if(customer==null){
@@ -47,7 +52,38 @@ public class OrderRestController {
 		}else{
 			orderModel.setCustomer(customer);
 		}
-		return this.orderDAO.save(orderModel);
+		ArrayList<OrderModel> orders=new ArrayList<OrderModel>();
+		
+		 // 022-222-2222
+		ArrayList<String> usernames=new ArrayList<>();
+		int basketBooksSize=orderModel.getBasketBooks().size();
+		
+		for (int i = 0; i < basketBooksSize ; i++) {
+			BasketBook bb=orderModel.getBasketBooks().get(i);
+			bb.setBook(bookDAO.findById(bb.getBook().getId()).get());
+			String username=bb.getBook().getUsername();
+			if(!usernames.contains(username)){
+				usernames.add(username);
+			}
+		}
+		
+		System.out.println(orderModel);
+		System.out.println(usernames);
+		for (int i = 0; i < usernames.size(); i++) {
+			OrderModel om=new OrderModel();
+			om.setCustomer(orderModel.getCustomer());
+			om.setUsername(usernames.get(i));
+			for (int j = 0; j < orderModel.getBasketBooks().size(); j++) {
+				if(orderModel.getBasketBooks().get(j).getBook().getUsername().
+						equals(usernames.get(i))){
+					om.getBasketBooks().add(orderModel.getBasketBooks().get(j));
+				}
+			}
+			this.orderDAO.save(om);
+			orders.add(om);
+		}
+		System.out.println(orders);
+		return orders;
 	}
 	
 	@GetMapping(path="/{username}",produces = MediaType.APPLICATION_XML_VALUE)

@@ -2,6 +2,7 @@ package az.developia.bookshopping_yaqub_e.model;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -117,6 +118,9 @@ public class OrderModel {
 
 
 	public List<BasketBook> getBasketBooks() {
+		if(this.basketBooks==null){
+			this.basketBooks=new ArrayList<>();
+		}
 		return basketBooks;
 	}
 

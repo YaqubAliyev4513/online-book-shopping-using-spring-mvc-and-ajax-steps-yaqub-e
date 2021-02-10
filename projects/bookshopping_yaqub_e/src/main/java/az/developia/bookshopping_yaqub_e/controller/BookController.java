@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import az.developia.bookshopping_yaqub_e.config.MySession;
 import az.developia.bookshopping_yaqub_e.dao.BookDAO;
+import az.developia.bookshopping_yaqub_e.dao.OrderDAO;
 import az.developia.bookshopping_yaqub_e.model.Book;
 
 
@@ -21,6 +22,9 @@ public class BookController {
   @Autowired
   public BookDAO bookDAO;
   private String username;
+  
+  @Autowired
+  public OrderDAO orderDAO;
   
   @Autowired
   private MySession mySession;
@@ -54,6 +58,7 @@ public class BookController {
 	  mySession.setMessage("Hello session");
 	  mySession.setUsername(username);
 	  this.username=username;
+	  model.addAttribute("orders", orderDAO.findAllByUsername(this.username));
 	  return "orders";
   }
   

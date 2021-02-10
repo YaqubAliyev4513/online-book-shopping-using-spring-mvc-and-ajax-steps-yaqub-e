@@ -112,10 +112,9 @@ function finishProcess() {
 		  xhttp.setRequestHeader("Content-type", "application/xml");
 		  console.log(customerName);
 		  
-		  var orderFullXmlObject="";
+		  var orderFullXmlObject="<order><basketBooks>";
 		  for (var i = 0; i < basketItemsArray.length; i++) {
 			var basketItem=basketItemsArray[i];
-			orderFullXmlObject="<order><username>"+basketItem.username+"</username><bookName>"+basketItem.name+"</bookName><bookCount>"+basketItem.count+"</bookCount><basketBooks>";
 			orderFullXmlObject+="<item><quantity>"+basketItem.count+"</quantity>"+
 			"<book><id>"+basketItem.id+"</id></book></item>"
 		}

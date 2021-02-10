@@ -24,8 +24,7 @@ public class OrderModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String bookName;
-	private Integer bookCount;
+	private Double totalPrice;
 	private String username;
 	
 	
@@ -54,26 +53,18 @@ public class OrderModel {
 
 
 
-	public String getBookName() {
-		return bookName;
+	
+
+
+
+	public Double getTotalPrice() {
+		return totalPrice;
 	}
 
 
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
-
-
-
-	public Integer getBookCount() {
-		return bookCount;
-	}
-
-
-
-	public void setBookCount(Integer bookCount) {
-		this.bookCount = bookCount;
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 
@@ -134,8 +125,8 @@ public class OrderModel {
 
 	@Override
 	public String toString() {
-		return "OrderModel [id=" + id + ", bookName=" +bookName+", bookCount=" +bookCount+", username=" + username
-				+ ", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
+		return "OrderModel [id=" + id + ", , username=" + username
+				+ ",totalPrice="+totalPrice+", register=" + register + ", customer=" + customer + ", basketBooks=" + basketBooks + "]";
 	}
 	
 

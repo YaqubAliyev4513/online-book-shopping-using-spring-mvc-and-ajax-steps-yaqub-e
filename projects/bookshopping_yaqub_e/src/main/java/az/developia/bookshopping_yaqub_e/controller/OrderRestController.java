@@ -79,12 +79,24 @@ public class OrderRestController {
 					om.getBasketBooks().add(orderModel.getBasketBooks().get(j));
 				}
 			}
+			calculateOrderTotalPrice(om);
 			this.orderDAO.save(om);
 			orders.add(om);
 		}
 		System.out.println(orders);
 		return orders;
 	}
+	
+	public void calculateOrderTotalPrice(OrderModel orderModel){
+		  double totalPrice=0;
+		  int size=orderModel.getBasketBooks().size();
+		  for (int i = 0; i < size; i++) {
+			  BasketBook bb=orderModel.getBasketBooks().get(i);
+			totalPrice+=bb.getQuantity()*bb.getBook().getPrice();
+		}
+		  orderModel.setTotalPrice(totalPrice);
+		 
+	  }
 	
 	@GetMapping(path="/{username}",produces = MediaType.APPLICATION_XML_VALUE)
 	public List<OrderModel> findAllByUsername(@PathVariable(name="username") String username){

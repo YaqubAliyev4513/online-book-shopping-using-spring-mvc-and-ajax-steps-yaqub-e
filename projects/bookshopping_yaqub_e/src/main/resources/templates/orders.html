@@ -49,6 +49,7 @@
 						<th>Id</th>
 						<th>Müştəri</th>
 						<th>Kitablar</th>
+						<th>Ümumi qiymət</th>
 						<th>Tarix</th>
 
 					</tr>
@@ -68,7 +69,7 @@
 						</ul>
 						
 						</td>
-	
+	                     <td th:text="${order.totalPrice}"></td>
 						 <td th:text="${order.register}"></td>
 						 
 					 

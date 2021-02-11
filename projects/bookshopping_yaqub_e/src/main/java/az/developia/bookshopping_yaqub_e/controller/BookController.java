@@ -80,12 +80,17 @@ public class BookController {
   public String showAddBookForm(Model model){
 	  Book book = new Book();
 	  book.setId(0);
+	  model.addAttribute("whenAddForm","");
 	  model.addAttribute("book",book);
 	  return "add-book";
   }
   @PostMapping("/addbook/{id}")
-	public String addBook(Book book, BindingResult result, Model model,@RequestParam(value = "image",required=true) MultipartFile image) {
-		if (result.hasErrors()) {
+	public String addBook(Book book, BindingResult result, Model model,@RequestParam(value = "image",required=true) MultipartFile image,@PathVariable("id") Integer id) {
+	   book.setId(id);
+	   if(id>0){
+			book.setImagePath(bookDAO.findById(id).get().getImagePath());
+		}
+	   if (result.hasErrors()) {
 			return "add-book";
 		}
 		
@@ -93,13 +98,17 @@ public class BookController {
 
 		System.out.println(image);
 
-		if(image==null){
+		if(image==null|| image.getSize()==0L){
 			
 		}else{
 			imageName = storageService.store(image);
 		}
 				
-	    book.setImagePath(imageName);
+		if(id==0){
+			book.setImagePath(imageName);
+		}else if(!imageName.equals("fakeimage.png")){
+			book.setImagePath(imageName);
+		} 
 		
 		
         book.setUsername(username); 
@@ -113,7 +122,8 @@ public class BookController {
 		Book book = bookDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
 
 		model.addAttribute("book", book);
-		return "edit-book";
+		model.addAttribute("whenEditForm","");
+		return "add-book";
 	}
   
   @GetMapping("/delete/{id}")

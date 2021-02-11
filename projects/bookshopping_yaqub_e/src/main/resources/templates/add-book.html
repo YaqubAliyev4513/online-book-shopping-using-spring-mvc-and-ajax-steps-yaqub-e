@@ -8,7 +8,8 @@
 <body>
   <div th:replace="menu :: menu"></div>
   <div class="container">
-<h1 style="color: green;">Yeni kitab qeydiyyatı</h1>
+  <div th:if="${whenAddForm}"><h1 style="color: green;">Yeni kitab qeydiyyatı</h1></div>
+  <div th:if="${whenEditForm}"><h1 style="color: green;">Kitab redaktəsi</h1></div>
 <form enctype="multipart/form-data"
  th:action="@{/addbook/{id}(id=${book.id})}" th:object="${book}" 
  method="post">
@@ -46,7 +47,7 @@
     
     <div class="form-group">
       <label for="email">Şəkil:</label>
-     <input required class="form-control" type="file"  name="image" accept="image/x-png,image/jpeg,image/jpg">
+     <input  class="form-control" type="file"  name="image" accept="image/x-png,image/jpeg,image/jpg">
     
     </div>
      

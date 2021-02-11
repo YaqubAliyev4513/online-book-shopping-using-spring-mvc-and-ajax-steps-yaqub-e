@@ -10,6 +10,6 @@ import az.developia.bookshopping_yaqub_e.model.Book;
 public interface BookDAO extends JpaRepository<Book, Integer>{
 	public List<Book> findAllByUsername(String username);
 	
-	@Query(value="select * from book  limit ?1,?2",nativeQuery=true)
-	public List<Book> findAllPartial(Integer begin,Integer length);
+	@Query(value="select * from book where name like %?1%",nativeQuery=true)
+	public List<Book> findAllSearch(String search);
 }

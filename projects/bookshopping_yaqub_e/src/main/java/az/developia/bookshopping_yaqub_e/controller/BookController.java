@@ -75,6 +75,11 @@ public class BookController {
 	  return "orders";
   }
   
+  @GetMapping(path="/order-confirmation-message")
+  public String showOrderConfirmationMessage(){
+	  return "order-confirmation-form";
+  }
+  
   
   @GetMapping(path="/addbook")
   public String showAddBookForm(Model model){

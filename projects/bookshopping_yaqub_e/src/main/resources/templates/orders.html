@@ -58,7 +58,10 @@
 					<tr th:each="order : ${orders}">
 						<td th:text="${order.id}"></td>
 						<td> Ad : <span th:text="${order.customer.name}"></span><br>
-						Telefon : <span th:text="${order.customer.phone}"></span> </td>
+						Soyad:  <span th:text="${order.customer.surname}"></span><br>
+						Telefon : <span th:text="${order.customer.phone}"></span> <br>
+						Ünvan : <span th:text="${order.customer.address}"></span> <br>
+						Email : <span th:text="${order.customer.email}"></span> </td>
 						
 						<td >
 						<ul>

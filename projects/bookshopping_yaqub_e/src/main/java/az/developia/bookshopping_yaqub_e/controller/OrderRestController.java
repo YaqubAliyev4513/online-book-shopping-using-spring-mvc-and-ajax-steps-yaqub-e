@@ -46,7 +46,7 @@ public class OrderRestController {
 	@PostMapping (consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
 	public List<OrderModel> add(@RequestBody OrderModel orderModel){
 		Customer customer =customerDAO.findByPhone(orderModel.getCustomer().getPhone());
-		
+		System.out.println(customer);
 		if(customer==null){
 			
 		}else{
